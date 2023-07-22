@@ -1,6 +1,6 @@
 version : "3.3"
 services :
   web :
-     image : docker push mohansahani/my-notes-app:latest
+     image : mohansahani/my-note-app:latest
      ports :
          - "8000:8000"
