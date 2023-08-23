@@ -1,6 +1,6 @@
 version : "3.3"
 services :
   web :
-     image : mohansahani/my-note-app:latestV1
+     image : mohansahani/note-app:latest
      ports :
          - "8000:8000"
