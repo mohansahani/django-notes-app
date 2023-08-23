@@ -10,27 +10,25 @@ pipeline {
         }
         stage("Build"){
             steps{
-                echo "Building the Image"
-                sh "docker build -t my-note-app ."
+                echo "Building the image"
+                sh "docker build -t note-app ."
             }
         }
-        stage("Push to Docker Hub"){
+        stage("Push to docker hub"){
             steps{
-                echo "Pushing the Image to Docker hub"
-                withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){ 
-                sh "docker tag my-note-app ${env.dockerHubUser}/my-note-app:latestV1"
+                echo "Pushing the image to docker hub"
+                withCredentials([usernamePassword(credentialsId:"dockerhub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
+                sh "docker tag note-app ${env.dockerHubUser}/note-app:latest"
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker push ${env.dockerHubUser}/my-note-app:latestV1"
+                sh "docker push ${env.dockerHubUser}/note-app:latest"
             }
-                
             }
         }
         stage("Deploy"){
             steps{
-                echo "Deploying the Code"
-                sh "docker-compose down && docker-compose up -d" 
-                
+                echo "Deplying the container"
+                sh "docker-compose down && docker-compose up -d "
             }
         }
-    }
+    } 
 }
